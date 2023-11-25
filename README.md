@@ -9,12 +9,12 @@ You need to get an API key from [CukCuk](https:/cukcuk.vn)
 ### Add the module to your go project
 
 ```sh
-go get github.com/thienhaole92/cukcuk/cukcuk
+go get github.com/thienhaole92/cukcuk
 ```
 
 ### Sample Code
 
-### Get access token
+#### Get access token
 
 ```go
 package main
@@ -46,7 +46,7 @@ func main() {
 }
 ```
 
-### APIs
+#### APIs
 
 ```go
 package main
@@ -84,7 +84,7 @@ func main() {
 	defer logger.Sync()
 	sugar := logger.Sugar()
 
-	res, err := cli.SAInvoicePaging(context.Background(), &cukcuk.SainvoicePagingReq{
+	res, err := cli.SAInvoicePaging(context.Background(), &cukcuk.SAInvoicePagingReq{
 		Page:         1,
 		Limit:        100,
 		HaveCustomer: true,

@@ -5,14 +5,14 @@ import (
 	"fmt"
 )
 
-type SainvoicePagingReq struct {
+type SAInvoicePagingReq struct {
 	Page         int    `json:"Page"`
 	Limit        int    `json:"Limit"`
 	BranchID     string `json:"BranchId"`
 	HaveCustomer bool   `json:"HaveCustomer"`
 }
 
-type Sainvoice struct {
+type SAInvoiceDef struct {
 	RefID                   string  `json:"RefId"`
 	RefType                 int     `json:"RefType"`
 	RefNo                   string  `json:"RefNo"`
@@ -50,13 +50,13 @@ type Sainvoice struct {
 	AddPoint                int     `json:"AddPoint"`
 }
 
-func (a *Api) SAInvoicePaging(ctx context.Context, req *SainvoicePagingReq) (*Response[[]*Sainvoice], error) {
+func (a *Api) SAInvoicePaging(ctx context.Context, req *SAInvoicePagingReq) (*Response[[]*SAInvoiceDef], error) {
 	tk, err := a.auth.GetToken(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	res, err := post[responseCommon[[]*Sainvoice]](
+	res, err := post[responseCommon[[]*SAInvoiceDef]](
 		ctx,
 		fmt.Sprintf(`%s/api/v1/sainvoices/paging`, a.config.url),
 		map[string]string{
@@ -74,7 +74,7 @@ func (a *Api) SAInvoicePaging(ctx context.Context, req *SainvoicePagingReq) (*Re
 		return nil, fmt.Errorf(res.ErrorMessage)
 	}
 
-	return &Response[[]*Sainvoice]{
+	return &Response[[]*SAInvoiceDef]{
 		Code:    res.Code,
 		Data:    res.Data,
 		Total:   res.Total,
