@@ -1,4 +1,4 @@
-package cukcuk
+package api
 
 import (
 	"bytes"

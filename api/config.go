@@ -1,4 +1,4 @@
-package cukcuk
+package api
 
 type Config struct {
 	url         string

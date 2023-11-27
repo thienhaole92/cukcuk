@@ -1,4 +1,4 @@
-package cukcuk
+package api
 
 type Response[T any] struct {
 	Code    int  `json:"Code"`

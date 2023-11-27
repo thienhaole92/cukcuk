@@ -1,4 +1,4 @@
-package cukcuk
+package api
 
 type Api struct {
 	config *Config

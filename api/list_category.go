@@ -1,27 +1,29 @@
-package cukcuk
+package api
 
 import (
 	"context"
 	"fmt"
 )
 
-type Branch struct {
+type Category struct {
 	ID          string `json:"Id"`
 	Code        string `json:"Code"`
 	Name        string `json:"Name"`
-	IsBaseDepot bool   `json:"IsBaseDepot"`
+	Description string `json:"Description"`
+	IsLeaf      bool   `json:"IsLeaf"`
+	Grade       int    `json:"Grade"`
 	Inactive    bool   `json:"Inactive"`
 }
 
-func (a *Api) ListBranches(ctx context.Context) (*Response[[]*Branch], error) {
+func (a *Api) ListCategory(ctx context.Context, includeInactive bool) (*Response[[]*Category], error) {
 	tk, err := a.auth.GetToken(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	res, err := get[responseCommon[[]*Branch]](
+	res, err := get[responseCommon[[]*Category]](
 		ctx,
-		fmt.Sprintf(`%s/api/v1/branchs/all`, a.config.url),
+		fmt.Sprintf(`%s/api/v1/categories/list?includeInactive=%t`, a.config.url, includeInactive),
 		map[string]string{
 			"Authorization": fmt.Sprintf(`Bearer %s`, tk),
 			"CompanyCode":   a.config.companyCode,
@@ -36,7 +38,7 @@ func (a *Api) ListBranches(ctx context.Context) (*Response[[]*Branch], error) {
 		return nil, fmt.Errorf(res.ErrorMessage)
 	}
 
-	return &Response[[]*Branch]{
+	return &Response[[]*Category]{
 		Code:    res.Code,
 		Data:    res.Data,
 		Total:   res.Total,

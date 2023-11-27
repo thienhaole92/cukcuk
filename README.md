@@ -54,7 +54,7 @@ package main
 import (
 	"context"
 
-	"github.com/thienhaole92/cukcuk/cukcuk"
+	"github.com/thienhaole92/cukcuk/api"
 	"go.uber.org/zap"
 )
 
@@ -77,14 +77,14 @@ const COMPANY_CODE = "COMPANY_CODE"
 
 func main() {
 	tk := NewTestTokenClient(ACCESS_TOKEN)
-	config := cukcuk.NewConfig("https://graphapi.cukcuk.vn", COMPANY_CODE)
-	cli := cukcuk.New(config, tk)
+	config := api.NewConfig("https://graphapi.cukcuk.vn", COMPANY_CODE)
+	cli := api.New(config, tk)
 
 	logger, _ := zap.NewDevelopment()
 	defer logger.Sync()
 	sugar := logger.Sugar()
 
-	res, err := cli.SAInvoicePaging(context.Background(), &cukcuk.SAInvoicePagingReq{
+	res, err := cli.SAInvoicePaging(context.Background(), &api.SAInvoicePagingReq{
 		Page:         1,
 		Limit:        100,
 		HaveCustomer: true,
